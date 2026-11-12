@@ -54,3 +54,11 @@ test("device detection parses models, but never invents firmware",()=>{
  assert.equal(unknown.firmware,"");
 });
 
+
+test("curated GitHub directory is accessible and never embeds third-party scripts",()=>{
+ assert.match(html,/src="\.\/lib\/community-projects\.js"/);
+ assert.match(html,/id="community-projects"/);
+ assert.match(html,/data-community-filter="PS4"/);
+ assert.match(html,/data-community-kind="entry"/);
+ assert.match(app,/ConsoleWebKitCommunity\.render/);
+});

@@ -62,3 +62,23 @@ node --test tests/*.test.mjs
 ```
 
 GitHub Actions validates and deploys `main`. The app uses no Supabase credentials, analytics, or backend. All console diagnostics stay in the browser; visiting the external host is a normal navigation to that provider.
+
+
+## Подборка проектов GitHub
+
+ConsoleWebKit содержит каталог из **15 доступных сторонних репозиториев**, предоставленных владельцем проекта, с прямыми ссылками на авторов. Они разделены по платформам (PS4, PS5, Nintendo Switch) и назначению: исследования уязвимостей и точки входа, кастомные прошивки, загрузчики, homebrew, эмуляторы и утилиты.
+
+**Не все эти программы предназначены для джейлбрейка.** Например, `PS5SX2` — эмулятор для PS5, `prospero-win` — среда совместимости с Windows-приложениями, `ps-patch-system` — система патчей приложений PS4/PS5, а `Atmosphère` — кастомная прошивка Switch. Платформа и название в карточке не гарантируют совместимость с конкретной прошивкой. Встроенный каталог не загружает и не исполняет сторонний код.
+
+Две присланные ссылки возвращали **404** при проверке 13 ноября 2026 года: `Swordpdf/ProsperoEden` и `blackbearreloaded/ProsperoEden`. Их не выдаём за доступные репозитории.
+
+### Интеграция с Repo Radar
+
+Эти проекты также добавлены в список проверяемых GitHub-источников основного каталога Repo Radar. Сборщик проверяет актуальные GitHub ID и состояние репозиториев, не добавляет пустые и архивные проекты, не создаёт дублей и отдельно просматривает публичные проекты авторов `Peteroxhka` и `dnestruev`.
+
+## GitHub projects directory
+
+ConsoleWebKit includes **15 accessible third-party GitHub repositories** curated from owner-submitted links. The directory groups projects by platform and purpose: security entry-point research, custom firmware, loaders, homebrew apps, emulators and utilities. These are **not interchangeable jailbreak methods**, and a listed project has no implied firmware compatibility. The page never embeds or automatically runs third-party code.
+
+The submitted `Swordpdf/ProsperoEden` and `blackbearreloaded/ProsperoEden` URLs returned **404** when checked on 13 November 2026, so they are not presented as available. The same available repository names are included in Repo Radar's reviewed GitHub ingestion sources, which skip duplicates and empty projects.
+

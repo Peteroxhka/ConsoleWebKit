@@ -77,6 +77,20 @@
    manualInvalid:"Укажи версию вроде 9.00 или 14.02 либо оставь поле пустым."
   }
  };
+ var communityTranslations={
+  en:{communityEyebrow:"04 — COMMUNITY SOURCES",communityTitle:"Console projects from GitHub",
+   communityLead:"Original repositories grouped by platform and purpose. Security research, custom firmware, homebrew apps and utilities are different types of software.",
+   communityAuto:"My console",communityAll:"All",communityAnyKind:"All types",communityEntry:"Exploit research",
+   communityCFW:"Custom firmware",communityLoader:"Loaders",communityUtility:"Utilities"},
+  ru:{communityEyebrow:"04 — ПРОЕКТЫ С GITHUB",communityTitle:"Проекты для игровых консолей",
+   communityLead:"Репозитории авторов с разделением по консолям и назначению. Исследования уязвимостей, кастомные прошивки, приложения и утилиты — разные виды программ.",
+   communityAuto:"Моя консоль",communityAll:"Все",communityAnyKind:"Все типы",communityEntry:"Исследования эксплойтов",
+   communityCFW:"Кастомные прошивки",communityLoader:"Загрузчики",communityUtility:"Утилиты"}
+ };
+ for(var langKey in communityTranslations){
+  for(var labelKey in communityTranslations[langKey])
+   labels[langKey][labelKey]=communityTranslations[langKey][labelKey];
+ }
  var launchLabels={
   ru:{launchTitle:"Запуск WebKit для PS4",launchLead:"Подбор модуля по точной прошивке, начиная с 6.70. Запуск выполняется на внешнем хосте Akela.",available:"Модуль найден в исходниках хоста",unavailable:"Пока нет доступного WebKit в этом хабе",missing:"Нужна точная версия прошивки PS4",unsupported:"Для этой версии пока нет доступного WebKit в этом хабе",launch:"Запустить на хосте Akela",launchNotice:"Проверь прошивку в настройках PS4. Нажатие откроет внешний модуль, который начинает попытку джейлбрейка. Возможен сбой или перезапуск консоли; сохрани игру заранее. На реальной PS4 эта интеграция пока не проверена.",deviceRequired:"Для запуска открой эту страницу в браузере PS4. Ручной выбор на телефоне или ПК позволяет только посмотреть совместимость.",mismatch:"Выбранная версия не совпадает с данными браузера PS4. Внешний хост использует User-Agent: подмена версии в форме не обеспечит совместимость.",launchReady:"После нажатия управление перейдёт внешнему хосту. Результат запуска смотри на его странице.",launching:"Открываем внешний хост… Результат ещё неизвестен.",supportedTitle:"Версии с подключённым модулем",sourceChecked:"Исходники хоста · проверено 13.11.2026",firmware1402:"14.02: автоматический запуск здесь не подключён. Найденный сторонний проект требует отдельный сервер на ПК; его работоспособность не проверена.",pcProject:"Исходники стороннего проекта для 14.02",modelUnavailable:" — пока нет WebKit в хабе"},
   en:{launchTitle:"PS4 WebKit launcher",launchLead:"Exact firmware matching, starting at 6.70. Execution takes place on Akela's external host.",available:"Module found in host source",unavailable:"No WebKit available in this hub yet",missing:"An exact PS4 firmware version is required",unsupported:"No WebKit available for this firmware in this hub yet",launch:"Launch on Akela host",launchNotice:"Check firmware in PS4 Settings. This button opens an external module that starts a jailbreak attempt. The console may crash or restart; save your game first. This integration has not been tested on PS4 hardware.",deviceRequired:"Open this page in a PS4 browser to launch. Manual selection on a phone or PC only previews compatibility.",mismatch:"Selected firmware differs from the PS4 browser hint. The external host uses the user-agent; editing this field does not make a different firmware compatible.",launchReady:"The button transfers control to the external host. Check the outcome on that page.",launching:"Opening external host… Outcome is not yet known.",supportedTitle:"Versions with a connected module",sourceChecked:"Host source · reviewed 2026-11-13",firmware1402:"14.02: automatic launch is not connected here. The third-party project found requires a separate PC server; its functionality has not been verified.",pcProject:"Third-party source for 14.02",modelUnavailable:" — no WebKit in this hub yet"}
@@ -194,7 +208,10 @@
   text("firmware-detail",getText("notOfficial"));
   text("engine-detail",detected.userAgent?getText("browserHint"):"");
  }
- function drawAll(){drawDetection();drawCapabilities();drawSelection();}
+ function drawAll(){
+  drawDetection();drawCapabilities();drawSelection();
+  if(window.ConsoleWebKitCommunity)window.ConsoleWebKitCommunity.render(manualModel||detected.model);
+ }
  function scan(){
   readDetection();
   capabilities=hintCapabilities();

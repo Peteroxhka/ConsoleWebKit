@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./lib/console-detect.js"></script>
   <script defer src="./lib/ps4-launcher.js"></script>
+  <script defer src="./lib/community-projects.js"></script>
   <script defer src="./app.js"></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
     </section>
 
     <section class="section detection-section" aria-labelledby="detected-title">
-      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section01">01 — IDENTIFICATION</p><h2 id="detected-title" data-i18n="detectedTitle">Your console at a glance</h2><p data-i18n="detectedLead" class="section-lead">We only read publicly exposed browser information. Results are approximate.</p></div><span class="section-number">01 / 03</span></div>
+      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section01">01 — IDENTIFICATION</p><h2 id="detected-title" data-i18n="detectedTitle">Your console at a glance</h2><p data-i18n="detectedLead" class="section-lead">We only read publicly exposed browser information. Results are approximate.</p></div><span class="section-number">01 / 04</span></div>
       <div class="metrics">
         <article class="metric"><span class="metric-icon">◇</span><p data-i18n="modelLabel">Device hint</p><strong id="device-result" aria-live="polite">Checking…</strong><small id="device-confidence"></small></article>
         <article class="metric"><span class="metric-icon">▤</span><p data-i18n="firmwareLabel">Firmware hint</p><strong id="firmware-result">—</strong><small id="firmware-detail"></small></article>
@@ -49,7 +50,7 @@
     </section>
 
     <section class="section" aria-labelledby="capabilities-title">
-      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section02">02 — COMPATIBILITY</p><h2 id="capabilities-title" data-i18n="capabilitiesTitle">Browser capability checks</h2><p class="section-lead" data-i18n="capabilitiesLead">Simple feature checks help understand what a browser exposes. No security probing is performed.</p></div><span class="section-number">02 / 03</span></div>
+      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section02">02 — COMPATIBILITY</p><h2 id="capabilities-title" data-i18n="capabilitiesTitle">Browser capability checks</h2><p class="section-lead" data-i18n="capabilitiesLead">Simple feature checks help understand what a browser exposes. No security probing is performed.</p></div><span class="section-number">02 / 04</span></div>
       <div id="capabilities" class="features">
         <div class="feature"><div><strong>Canvas 2D</strong><small data-i18n="featureCanvas">2D graphic drawing</small></div><span id="feature-canvas" class="pill">…</span></div>
         <div class="feature"><div><strong>WebGL</strong><small data-i18n="featureWebgl">3D graphics availability</small></div><span id="feature-webgl" class="pill">…</span></div>
@@ -61,7 +62,7 @@
     </section>
 
     <section class="section" aria-labelledby="explore-title">
-      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section03">03 — PROJECT DISCOVERY</p><h2 id="explore-title" data-i18n="exploreTitle">Explore related open-source projects</h2><p class="section-lead" data-i18n="exploreLead">Browse the Repo Radar catalog for projects mentioning your console.</p></div><span class="section-number">03 / 03</span></div>
+      <div class="section-head"><div><p class="eyebrow subdued" data-i18n="section03">03 — PROJECT DISCOVERY</p><h2 id="explore-title" data-i18n="exploreTitle">Explore related open-source projects</h2><p class="section-lead" data-i18n="exploreLead">Browse the Repo Radar catalog for projects mentioning your console.</p></div><span class="section-number">03 / 04</span></div>
       <div class="discovery">
         <div class="discovery-main"><span class="discovery-kicker" data-i18n="found">IDENTIFIED PLATFORM</span><h3 id="selected-name">Waiting for identification</h3><p id="selected-info" data-i18n="deviceUnknown">We could not identify your device from the browser alone. You can browse all console projects, or choose a console manually.</p><p id="selected-firmware"></p></div>
         <a id="open-catalog" class="catalog-button" href="https://peteroxhka.github.io/repo-radar/?category=console_webkit" target="_blank" rel="noopener noreferrer"><span data-i18n="allProjects">Browse all console projects</span><span aria-hidden="true">↗</span></a>
@@ -97,6 +98,33 @@
       <p id="launch-detail" role="status" aria-live="polite"></p>
       <div id="launch-1402" hidden><p data-i18n="firmware1402"></p><a href="https://github.com/Jfkkfjzkz/ps4-akatsuki-jailbreak" target="_blank" rel="noopener noreferrer" data-i18n="pcProject">Third-party source for 14.02</a></div>
       <details><summary data-i18n="supportedTitle">Versions with a connected module</summary><p id="supported-firmware"></p><a id="launch-source" href="https://github.com/Akela-x/ps4freeforall" target="_blank" rel="noopener noreferrer" data-i18n="sourceChecked">Host source · reviewed 2026-11-13</a></details>
+    </section>
+    <section class="section community-section" aria-labelledby="community-title" id="community">
+      <div class="section-head">
+        <div><p class="eyebrow subdued" data-i18n="communityEyebrow">04 — COMMUNITY SOURCES</p>
+          <h2 id="community-title" data-i18n="communityTitle">Console projects from GitHub</h2>
+          <p class="section-lead" data-i18n="communityLead">Original repositories, grouped by platform and purpose. An entry point, a custom firmware, an emulator and a utility are different types of software.</p>
+        </div>
+        <span class="section-number">04 / 04</span>
+      </div>
+      <div class="community-counter"><span aria-hidden="true">●</span> <span id="community-count" role="status">15 verified repositories</span></div>
+      <div class="community-filters" role="group" aria-label="Filter projects by platform">
+        <button type="button" data-community-filter="auto" aria-pressed="true" data-i18n="communityAuto">My console</button>
+        <button type="button" data-community-filter="all" aria-pressed="false" data-i18n="communityAll">All</button>
+        <button type="button" data-community-filter="PS4" aria-pressed="false">PS4</button>
+        <button type="button" data-community-filter="PS5" aria-pressed="false">PS5</button>
+        <button type="button" data-community-filter="Nintendo Switch" aria-pressed="false">Switch</button>
+      </div>
+      <div class="community-filters community-kind-filters" role="group" aria-label="Filter projects by function">
+        <button type="button" data-community-kind="all" aria-pressed="true" data-i18n="communityAnyKind">All types</button>
+        <button type="button" data-community-kind="entry" aria-pressed="false" data-i18n="communityEntry">Exploit research</button>
+        <button type="button" data-community-kind="cfw" aria-pressed="false" data-i18n="communityCFW">Custom firmware</button>
+        <button type="button" data-community-kind="loader" aria-pressed="false" data-i18n="communityLoader">Loaders</button>
+        <button type="button" data-community-kind="homebrew" aria-pressed="false">Homebrew</button>
+        <button type="button" data-community-kind="utility" aria-pressed="false" data-i18n="communityUtility">Utilities</button>
+      </div>
+      <div id="community-projects" class="community-cards" aria-live="polite"></div>
+      <p id="community-note" class="notice community-notice">Links to original authors; hardware compatibility is not verified.</p>
     </section>
     <footer><span>© <span id="year">2026</span> ConsoleWebKit</span><span data-i18n="footerDesc">Independent browser diagnostics — part of the Repo Radar ecosystem.</span><a href="https://github.com/Peteroxhka/ConsoleWebKit" target="_blank" rel="noopener noreferrer">GitHub ↗</a></footer>
   </main>
