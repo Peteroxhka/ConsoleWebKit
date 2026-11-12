@@ -1,99 +1,64 @@
 # ConsoleWebKit
 
-**Languages / Языки:** [Русский](#русский) · [English](#english)
-
-**Website / Сайт:** https://peteroxhka.github.io/ConsoleWebKit/  
-**GitHub:** https://github.com/Peteroxhka/ConsoleWebKit  
-**Repo Radar catalog:** https://peteroxhka.github.io/repo-radar/?category=console_webkit
-
----
+[Website](https://peteroxhka.github.io/ConsoleWebKit/) · [Source](https://github.com/Peteroxhka/ConsoleWebKit)
 
 ## Русский
 
-### О проекте
+Хаб определяет консоль и предполагаемую прошивку по User-Agent, проверяет возможности браузера и подбирает внешний модуль PS4 по **точному списку версий**. Ручной выбор позволяет посмотреть совместимость. Другие консоли показывают «Пока нет доступного WebKit в этом хабе» — это статус интеграции, а не утверждение об отсутствии методов для этой платформы вообще.
 
-**ConsoleWebKit** — отдельный сайт для диагностики браузеров игровых консолей и поиска связанных проектов. Он предназначен для PlayStation 3, PlayStation 4, PlayStation 5, PS Vita, Nintendo Wii U, Nintendo Switch и Xbox.
+### Запуск PS4
 
-Сайт запускается прямо в браузере, не требует установки программ, регистрации, сервера или передачи данных в Supabase. Он старается определить модель консоли по User-Agent браузера. Для некоторых браузеров PS4 и PS5 эта строка может содержать приблизительную версию системной прошивки, но браузер не обязан сообщать её корректно.
+1. Открой сайт в браузере PS4. Проверь точную прошивку в настройках консоли.
+2. Хаб автоматически выберет модуль для распознанной версии.
+3. Нажми «Запустить на хосте Akela». Браузер перейдёт на соответствующую страницу внешнего хоста в той же вкладке. Его модуль начинает собственную процедуру запуска.
 
-Если устройство не распознано, можно открыть полный каталог консольных проектов. Если браузер ошибся в модели, доступна отдельная сворачиваемая панель ручного выбора консоли и ввода версии прошивки. Ручной ввод обозначает лишь предпочтение пользователя, а не результат проверки.
+Посещение хаба само по себе ничего не запускает. Ручной выбор PS4 на телефоне или ПК не разблокирует запуск. Если введённая версия отличается от User-Agent, запуск также блокируется: внешний модуль определяет прошивку самостоятельно. User-Agent не является достоверным измерением системы.
 
-### Что умеет сайт
+Интеграция **не тестировалась на физической PS4**. Доступность означает наличие маршрута в прочитанных исходниках, а не гарантию успешного джейлбрейка. Возможны сбои и перезапуски консоли. Сохрани игру перед запуском. Хаб не отображает фиктивный результат «успешно» и не обещает офлайн-работу внешнего хоста.
 
-- Автоматически анализирует только доступную браузеру строку `navigator.userAgent`.
-- Показывает предполагаемую модель консоли, возможную версию прошивки и наличие упоминания WebKit.
-- Проверяет стандартные функции браузера: Canvas 2D, WebGL, localStorage, сенсорные события, JavaScript-модули и WebAssembly.
-- Предлагает русский и английский язык интерфейса.
-- Работает на статическом GitHub Pages без внешних скриптов, API-ключей и серверной базы данных.
-- Переходит к соответствующей категории репозиториев в Repo Radar.
-- Использует обычный JavaScript с синтаксисом ES5, чтобы работать в более старых консольных браузерах. Совместимость на конкретном устройстве зависит от его браузера и требует реального тестирования.
+### Подключённые версии
 
-### Безопасность и ограничения
+| Версии PS4 | Внешний модуль |
+|---|---|
+| 6.70, 6.71 | PSFree |
+| 6.72 | 6.72 host |
+| 7.00, 7.01, 7.02, 7.50, 7.51, 7.55 | PSFree |
+| 8.00, 8.01, 8.03, 8.50, 8.52 | PSFree |
+| 9.00, 9.03, 9.04, 9.50, 9.51, 9.60 | PSFree |
+| 10.00, 10.50 | G2AllPro |
+| 11.00, 11.50, 11.52 | Slopkit |
+| 11.02 | CSSFontFace |
+| 12.00, 12.02, 12.50, 12.52 | RawGame4 |
+| 13.00 | G2AllPro |
+| 13.02, 13.04, 13.50, 13.52 | 13.x host |
+| 14.00 | 14.00 host |
 
-**ConsoleWebKit не выполняет эксплойты, джейлбрейк, загрузку пейлоадов или обход защиты.** Это справочный и диагностический сайт.
+Промежуточные номера не считаются автоматически совместимыми. Например, 10.01 не направляется в модуль 10.00. Версия 14.02 пока закрыта для автоматического запуска: найденный альтернативный проект описывает отдельный сервер на ПК, а не готовую интеграцию с нашим GitHub Pages.
 
-User-Agent можно подделать. У некоторых браузеров сведения о модели и прошивке вообще отсутствуют. Даже если сайт определил версию, это не означает, что на ней работает какой-то конкретный сторонний проект. Страница не проверяет уязвимости системы и не получает доступа к консоли.
+### Источники и ограничения
 
-Проверки возможностей браузера локальные и безвредные. Для хранения выбранного языка используется localStorage, когда он доступен. Данные о консоли не отправляются с помощью аналитических запросов. Обычный хостинг GitHub Pages может вести стандартные серверные журналы посещений.
+Сверено 13 ноября 2026 с [Akela-x/ps4freeforall, коммит 0cd0160](https://github.com/Akela-x/ps4freeforall/tree/0cd01608f5f8fb0095cd59ded2e94666eaa275f7): главный маршрутизатор, список в `ran/psfree/index.html`, точные версии в `ran/g2allpro/index.html`, таблицы остальных модулей. В заголовках upstream встречаются более широкие диапазоны, чем в реализациях; хаб использует консервативный точный список.
 
-### Разработка и запуск
-
-Репозиторий устроен просто: `index.html` — интерфейс, `styles.css` — оформление, `app.js` — диагностическая логика и перевод, `lib/console-detect.js` — безопасный парсер User-Agent, `tests/` — автоматические проверки.
-
-Локально достаточно открыть `index.html` в браузере. Для запуска через HTTP можно использовать любой простой статический веб-сервер. Тесты запускаются командой:
-
-```bash
-node --check app.js
-node --check lib/console-detect.js
-node --test tests/*.test.mjs
-```
-
-GitHub Actions запускает тесты при коммите в `main` и публикует файлы на GitHub Pages, когда Pages включён в настройках репозитория.
-
----
+Хаб содержит **ссылки на внешние модули**, а не собственные копии эксплойтов или бинарных файлов. Внешний хост может измениться независимо от зафиксированного источника. Авторы исходных модулей и лицензии указаны в upstream. Для собственной копии потребуется отдельно проверить лицензии и все зависимости.
 
 ## English
 
-### Overview
+ConsoleWebKit detects console/firmware hints and selects an exact PS4 route from an allowlist starting at 6.70. Pressing the launch button navigates to the selected external Akela module; it is not a locally bundled jailbreak. Other consoles and unknown firmware remain unavailable in this hub. Manual selection on a PC cannot enable execution, and a firmware mismatch blocks launch.
 
-**ConsoleWebKit** is an independent browser diagnostics and project discovery site for PlayStation 3, PlayStation 4, PlayStation 5, PS Vita, Nintendo Wii U, Nintendo Switch, and Xbox consoles.
+Availability is based on source inspection, **not hardware validation**. There are no fake success messages or offline-cache promises. Firmware 14.02 is not connected for automatic launch. The linked alternative describes a separate local PC server.
 
-The site runs in a browser without an installer, user account, remote database, or Supabase credentials. It tries to identify the console through the browser's publicly exposed user-agent. Some PlayStation 4 and PlayStation 5 browsers include a possible firmware version in that string, but the information may be absent or incorrect.
+## Development
 
-If detection fails, visitors can open the full console-project catalog. When the detected model is wrong, an optional collapsible section allows a manual console selection and firmware entry. Manual input represents a user preference, **not** verified device information.
+- `lib/console-detect.js`: ES5 user-agent parser.
+- `lib/ps4-launcher.js`: exact firmware allowlist, external URLs and launch guard.
+- `app.js`: diagnostics, RU/EN UI and explicit click handler.
+- `tests/`: routing boundaries, unsupported platforms, firmware mismatch and UI structure.
 
-### Features
-
-- Conservative device detection via `navigator.userAgent`.
-- Display of the reported model, potential firmware hint, and browser engine hint.
-- Standard, read-only browser feature checks: Canvas 2D, WebGL, localStorage, touch events, JavaScript modules, and WebAssembly.
-- Russian and English translations.
-- Responsive standalone static website with no backend, analytics code, or private API keys.
-- Contextual links to console-related projects indexed in Repo Radar.
-- ES5-compatible JavaScript to improve support for older console browsers. Actual behavior on every device must still be tested.
-
-### Safety and limitations
-
-**ConsoleWebKit does not execute exploits, jailbreak devices, load payloads, or bypass security restrictions.** It is an informational diagnostics and discovery website.
-
-A user-agent string may be spoofed or lack identifying data. A reported firmware version does **not** prove that third-party tools are compatible. The page does not probe software vulnerabilities or obtain privileged access to any console.
-
-Capability checks are local standard browser operations. Language preference may be saved in localStorage. No console fingerprint is uploaded through application analytics; GitHub Pages may still maintain ordinary hosting access logs.
-
-### Architecture and local development
-
-The website uses `index.html` for markup, `styles.css` for its design, `app.js` for interface and diagnostic logic, `lib/console-detect.js` for user-agent parsing, and `tests/` for regression tests.
-
-You can open `index.html` directly or serve the directory with a static HTTP server. Run tests using:
-
-```bash
+```sh
 node --check app.js
 node --check lib/console-detect.js
+node --check lib/ps4-launcher.js
 node --test tests/*.test.mjs
 ```
 
-The GitHub Actions workflow tests each change on `main` and deploys to GitHub Pages once GitHub Pages has been enabled for this repository.
-
----
-
-Maintained by **Peteroxhka**. Independent of Sony, Nintendo and Microsoft.
+GitHub Actions validates and deploys `main`. The app uses no Supabase credentials, analytics, or backend. All console diagnostics stay in the browser; visiting the external host is a normal navigation to that provider.

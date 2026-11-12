@@ -25,6 +25,7 @@ jobs:
         run: |
           node --check app.js
           node --check lib/console-detect.js
+          node --check lib/ps4-launcher.js
           node --test tests/*.test.mjs
           test -f index.html
           test -f styles.css
@@ -43,3 +44,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+

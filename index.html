@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#09101e">
-  <meta name="description" content="ConsoleWebKit — a read-only console browser identification and diagnostics hub for PlayStation, Nintendo and Xbox browsers.">
+  <meta name="description" content="ConsoleWebKit — PS4 firmware matching, external WebKit launcher and console browser diagnostics.">
   <title>ConsoleWebKit — Console Browser Lab</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./lib/console-detect.js"></script>
+  <script defer src="./lib/ps4-launcher.js"></script>
   <script defer src="./app.js"></script>
 </head>
 <body>
@@ -32,7 +33,7 @@
           <button id="refresh-scan" type="button" class="primary-action"><span aria-hidden="true">◎</span> <span data-i18n="scanAgain">Scan this browser</span></button>
           <a class="secondary-action" href="https://peteroxhka.github.io/repo-radar/?category=console_webkit" target="_blank" rel="noopener noreferrer"><span data-i18n="catalog">Console project catalog</span> <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="safety-line"><span aria-hidden="true">✓</span> <span data-i18n="safe">Read-only diagnostics. No jailbreak or exploit code is run.</span></p>
+        <p class="safety-line"><span aria-hidden="true">✓</span> <span data-i18n="safe">PS4: exact firmware selection. Launch only after pressing the button.</span></p>
       </div>
       <div class="hero-decoration" aria-hidden="true"><div class="ring ring-one"></div><div class="ring ring-two"></div><div class="ring ring-three"></div><div class="ring-center">CW</div><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
     </section>
@@ -85,7 +86,20 @@
         </div>
       </div>
     </section>
+    <section class="section-block launch-section" aria-labelledby="launch-title">
+      <p class="eyebrow">PS4 · WEBKIT</p>
+      <h2 id="launch-title" data-i18n="launchTitle">PS4 WebKit launcher</h2>
+      <p data-i18n="launchLead">Exact firmware matching, starting at 6.70. Execution takes place on Akela's external host.</p>
+      <p id="launch-status" class="pill" role="status"></p>
+      <h3 id="launch-module"></h3>
+      <p data-i18n="launchNotice">Check firmware in PS4 Settings. This button opens an external module that starts a jailbreak attempt. The console may crash or restart; save your game first. This integration has not been tested on PS4 hardware.</p>
+      <button type="button" class="primary-action" id="launch-ps4" data-i18n="launch" disabled>Launch on Akela host</button>
+      <p id="launch-detail" role="status" aria-live="polite"></p>
+      <div id="launch-1402" hidden><p data-i18n="firmware1402"></p><a href="https://github.com/Jfkkfjzkz/ps4-akatsuki-jailbreak" target="_blank" rel="noopener noreferrer" data-i18n="pcProject">Third-party source for 14.02</a></div>
+      <details><summary data-i18n="supportedTitle">Versions with a connected module</summary><p id="supported-firmware"></p><a id="launch-source" href="https://github.com/Akela-x/ps4freeforall" target="_blank" rel="noopener noreferrer" data-i18n="sourceChecked">Host source · reviewed 2026-11-13</a></details>
+    </section>
     <footer><span>© <span id="year">2026</span> ConsoleWebKit</span><span data-i18n="footerDesc">Independent browser diagnostics — part of the Repo Radar ecosystem.</span><a href="https://github.com/Peteroxhka/ConsoleWebKit" target="_blank" rel="noopener noreferrer">GitHub ↗</a></footer>
   </main>
 </body>
 </html>
+

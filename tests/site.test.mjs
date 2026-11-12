@@ -20,8 +20,10 @@ test("all IDs accessed in the UI are present and unique",()=>{
  for(const match of app.matchAll(/\$\("([^"]+)"\)/g))
   assert.ok(ids.includes(match[1]),"missing #"+match[1]);
 });
-test("browser page is a read-only diagnostics tool without auto-execution",()=>{
- assert.match(html,/No jailbreak or exploit code is run/);
+test("browser page launches external host only through explicit action",()=>{
+ assert.match(html,/id="launch-ps4"[^>]*disabled/);
+ assert.match(app,/launcher.canLaunch/);
+ assert.match(app,/window.location.assign\(route.url\)/);
  assert.match(app,/navigator\.userAgent/);
  assert.match(app,/hintCapabilities\(/);
  assert.doesNotMatch(app,/eval\(|new Function\(|WebAssembly\.instantiate|fetch\(|XMLHttpRequest|document\.write/);
@@ -51,3 +53,4 @@ test("device detection parses models, but never invents firmware",()=>{
  assert.equal(unknown.model,"");
  assert.equal(unknown.firmware,"");
 });
+

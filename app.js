@@ -1,9 +1,10 @@
-/* ConsoleWebKit: read-only detection, capability checks, and catalog navigation.
+/* ConsoleWebKit: device detection and explicit external PS4 host launch.
    ES5 syntax is intentional for legacy console WebKit browsers. */
 (function () {
  "use strict";
  var $=function (id) { return document.getElementById(id); };
  var detector=window.RepoRadarConsoleDetect;
+ var launcher=window.ConsoleWebKitLauncher;
  var urls={
   general:"https://peteroxhka.github.io/repo-radar/?category=console_webkit",
   byConsole:"https://peteroxhka.github.io/repo-radar/?console="
@@ -76,6 +77,20 @@
    manualInvalid:"Укажи версию вроде 9.00 или 14.02 либо оставь поле пустым."
   }
  };
+ var launchLabels={
+  ru:{launchTitle:"Запуск WebKit для PS4",launchLead:"Подбор модуля по точной прошивке, начиная с 6.70. Запуск выполняется на внешнем хосте Akela.",available:"Модуль найден в исходниках хоста",unavailable:"Пока нет доступного WebKit в этом хабе",missing:"Нужна точная версия прошивки PS4",unsupported:"Для этой версии пока нет доступного WebKit в этом хабе",launch:"Запустить на хосте Akela",launchNotice:"Проверь прошивку в настройках PS4. Нажатие откроет внешний модуль, который начинает попытку джейлбрейка. Возможен сбой или перезапуск консоли; сохрани игру заранее. На реальной PS4 эта интеграция пока не проверена.",deviceRequired:"Для запуска открой эту страницу в браузере PS4. Ручной выбор на телефоне или ПК позволяет только посмотреть совместимость.",mismatch:"Выбранная версия не совпадает с данными браузера PS4. Внешний хост использует User-Agent: подмена версии в форме не обеспечит совместимость.",launchReady:"После нажатия управление перейдёт внешнему хосту. Результат запуска смотри на его странице.",launching:"Открываем внешний хост… Результат ещё неизвестен.",supportedTitle:"Версии с подключённым модулем",sourceChecked:"Исходники хоста · проверено 13.11.2026",firmware1402:"14.02: автоматический запуск здесь не подключён. Найденный сторонний проект требует отдельный сервер на ПК; его работоспособность не проверена.",pcProject:"Исходники стороннего проекта для 14.02",modelUnavailable:" — пока нет WebKit в хабе"},
+  en:{launchTitle:"PS4 WebKit launcher",launchLead:"Exact firmware matching, starting at 6.70. Execution takes place on Akela's external host.",available:"Module found in host source",unavailable:"No WebKit available in this hub yet",missing:"An exact PS4 firmware version is required",unsupported:"No WebKit available for this firmware in this hub yet",launch:"Launch on Akela host",launchNotice:"Check firmware in PS4 Settings. This button opens an external module that starts a jailbreak attempt. The console may crash or restart; save your game first. This integration has not been tested on PS4 hardware.",deviceRequired:"Open this page in a PS4 browser to launch. Manual selection on a phone or PC only previews compatibility.",mismatch:"Selected firmware differs from the PS4 browser hint. The external host uses the user-agent; editing this field does not make a different firmware compatible.",launchReady:"The button transfers control to the external host. Check the outcome on that page.",launching:"Opening external host… Outcome is not yet known.",supportedTitle:"Versions with a connected module",sourceChecked:"Host source · reviewed 2026-11-13",firmware1402:"14.02: automatic launch is not connected here. The third-party project found requires a separate PC server; its functionality has not been verified.",pcProject:"Third-party source for 14.02",modelUnavailable:" — no WebKit in this hub yet"}
+ };
+ var langKey,key;
+ for(langKey in launchLabels)if(Object.prototype.hasOwnProperty.call(launchLabels,langKey))for(key in launchLabels[langKey])if(Object.prototype.hasOwnProperty.call(launchLabels[langKey],key))labels[langKey][key]=launchLabels[langKey][key];
+ labels.ru.safe="PS4: выбор модуля по прошивке. Запуск только после нажатия кнопки.";
+ labels.en.safe="PS4: exact firmware selection. Launch only after pressing the button.";
+ labels.ru.heroB="Подбери WebKit для PS4.";
+ labels.en.heroB="Find your PS4 WebKit module.";
+ labels.ru.heroDesc="Определение консоли, проверка браузера и запуск внешних модулей PS4 для выбранных прошивок от 6.70. Остальные консоли пока не подключены.";
+ labels.en.heroDesc="Console detection, browser checks and external PS4 modules for selected firmware versions from 6.70. Other consoles are not connected yet.";
+ labels.ru.manualFirmware="Точная прошивка PS4 (например, 9.00)";
+ labels.en.manualFirmware="Exact PS4 firmware (for example, 9.00)";
  var language="en",stored=null;
  try{stored=window.localStorage.getItem("consolewebkit-language")||window.localStorage.getItem("radar-locale");}catch(ignore){}
  if(stored==="ru"||stored==="en")language=stored;
@@ -110,7 +125,7 @@
  function hintCapabilities(){
   var capabilities={canvas:false,webgl:false,storage:false,touch:false,modules:false,wasm:false},canvas;
   try{canvas=document.createElement("canvas");capabilities.canvas=!!(canvas.getContext&&canvas.getContext("2d"));}catch(ignore){}
-  try{capabilities.webgl=!!(canvas&&canvas.getContext&&(canvas.getContext("webgl")||canvas.getContext("experimental-webgl")));}catch(ignore){}
+  try{canvas=document.createElement("canvas");capabilities.webgl=!!(canvas&&canvas.getContext&&(canvas.getContext("webgl")||canvas.getContext("experimental-webgl")));}catch(ignore){}
   try{
    var test="cw-diagnostic-check";
    window.localStorage.setItem(test,"1");
@@ -147,8 +162,30 @@
    var pressed=button.getAttribute("data-console")===active;
    button.setAttribute("aria-pressed",pressed?"true":"false");
   }
-  $("manual-error").textContent="";
+  drawLauncher(active,firmware);
  }
+ function drawLauncher(model,firmware){
+  var route=launcher.resolve(model,firmware),button=$("launch-ps4"),allowed=launcher.canLaunch(detected,model,firmware);
+  text("launch-status",getText(route.status)+(model==="PS4"&&route.firmware?" · PS4 "+route.firmware:""));
+  $("launch-status").className="pill "+(route.status==="available"?"good":"bad");
+  text("launch-module",route.name||"");
+  button.disabled=!allowed;
+  text("launch-detail",route.status==="available"?getText(allowed?"launchReady":detected.model!=="PS4"?"deviceRequired":"mismatch"):getText(route.status));
+  $("launch-1402").hidden=!(model==="PS4"&&route.firmware==="14.02");
+  var buttons=document.querySelectorAll("[data-console]"),i,b;
+  for(i=0;i<buttons.length;i++){b=buttons[i];b.title=b.getAttribute("data-console")==="PS4"?getText("launchTitle"):getText("unavailable");b.className=b.getAttribute("data-console")==="PS4"?"":"platform-unavailable";}
+ }
+ $("launch-ps4").onclick=function(){
+  // Re-read the device at the moment of launch; never trust a stale enabled button.
+  readDetection();
+  var model=manualModel||detected.model,firmware=manualModel?manualFirmware:detected.firmware;
+  if(!launcher.canLaunch(detected,model,firmware)){drawLauncher(model,firmware);return;}
+  var route=launcher.resolve(model,firmware);
+  this.disabled=true;text("launch-detail",getText("launching"));
+  window.location.assign(route.url);
+ };
+ text("supported-firmware",launcher.versions.join(" · "));
+ $("launch-source").href=launcher.source;
  function drawDetection(){
   text("device-result",detected.model?labelFor(detected.model):getText("unknown"));
   text("firmware-result",detected.firmware||getText("unknownFirmware"));
@@ -175,7 +212,7 @@
  for(i=0;i<choices.length;i++){
   choices[i].onclick=function(){
    manualModel=this.getAttribute("data-console");
-   var input=$("manual-firmware"),value=input.value.replace(/^\s+|\s+$/g,"");
+   var input=$("manual-firmware");if(!input.value&&manualModel===detected.model)input.value=detected.firmware||"";var value=input.value.replace(/^\s+|\s+$/g,"");
    manualFirmware=safeFirmware(value);
    if(value&&!manualFirmware)text("manual-error",getText("manualInvalid"));
    else text("manual-error","");
@@ -183,6 +220,7 @@
   };
  }
  $("manual-firmware").oninput=function(){
+  if(!manualModel&&detected.model)manualModel=detected.model;
   var value=this.value.replace(/^\s+|\s+$/g,"");
   manualFirmware=safeFirmware(value);
   drawSelection();
@@ -197,3 +235,4 @@
  scan();
  setLang(language);
 }());
+
