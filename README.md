@@ -82,3 +82,7 @@ ConsoleWebKit includes **15 accessible third-party GitHub repositories** curated
 
 The submitted `Swordpdf/ProsperoEden` and `blackbearreloaded/ProsperoEden` URLs returned **404** when checked on 13 November 2026, so they are not presented as available. The same available repository names are included in Repo Radar's reviewed GitHub ingestion sources, which skip duplicates and empty projects.
 
+
+**Дополнение:** два из 15 доступных GitHub-репозиториев — форки (`itsPLK/ps5-y2jb-autoloader` и `notmaj0r/Y2JB`). Их ссылки остаются в справочнике ConsoleWebKit с пометкой **Fork**, но сборщик Repo Radar не импортирует их согласно фильтру качества.
+
+**Note:** Two listed repositories are forks (`itsPLK/ps5-y2jb-autoloader`, `notmaj0r/Y2JB`). Their reference links remain available here and are clearly marked **Fork**; Repo Radar's quality filter intentionally excludes them from its catalog.

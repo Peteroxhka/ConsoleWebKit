@@ -10,6 +10,7 @@ runInContext(source,context);
 const data=context.ConsoleWebKitCommunity;
 test("all 15 accessible GitHub projects are listed without duplicates",()=>{
  assert.equal(data.projects.length,15);
+ assert.equal(data.projects.filter(x=>x.fork).length,2);
  assert.equal(new Set(data.projects.map(x=>x.id)).size,15);
  assert.deepEqual(Array.from(data.missing),["Swordpdf/ProsperoEden","blackbearreloaded/ProsperoEden"]);
  assert.ok(data.projects.some(x=>x.id==="Swordpdf/PS5SX2"));

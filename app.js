@@ -79,11 +79,11 @@
  };
  var communityTranslations={
   en:{communityEyebrow:"04 — COMMUNITY SOURCES",communityTitle:"Console projects from GitHub",
-   communityLead:"Original repositories grouped by platform and purpose. Security research, custom firmware, homebrew apps and utilities are different types of software.",
+   communityLead:"GitHub repositories grouped by platform and purpose. Security research, custom firmware, homebrew apps and utilities are different types of software.",
    communityAuto:"My console",communityAll:"All",communityAnyKind:"All types",communityEntry:"Exploit research",
    communityCFW:"Custom firmware",communityLoader:"Loaders",communityUtility:"Utilities"},
   ru:{communityEyebrow:"04 — ПРОЕКТЫ С GITHUB",communityTitle:"Проекты для игровых консолей",
-   communityLead:"Репозитории авторов с разделением по консолям и назначению. Исследования уязвимостей, кастомные прошивки, приложения и утилиты — разные виды программ.",
+   communityLead:"GitHub-проекты с разделением по консолям и назначению. Исследования уязвимостей, кастомные прошивки, приложения и утилиты — разные виды программ.",
    communityAuto:"Моя консоль",communityAll:"Все",communityAnyKind:"Все типы",communityEntry:"Исследования эксплойтов",
    communityCFW:"Кастомные прошивки",communityLoader:"Загрузчики",communityUtility:"Утилиты"}
  };
