@@ -105,8 +105,18 @@
  labels.en.heroDesc="Console detection, browser checks and external PS4 modules for selected firmware versions from 6.70. Other consoles are not connected yet.";
  labels.ru.manualFirmware="Точная прошивка PS4 (например, 9.00)";
  labels.en.manualFirmware="Exact PS4 firmware (for example, 9.00)";
+ labels.en.languageLabel="Language";
+ labels.ru.languageLabel="Язык";
+ labels.en.themeLabel="Theme";
+ labels.ru.themeLabel="Тема";
+ labels.en.themeDark="Dark";
+ labels.ru.themeDark="Тёмная";
+ labels.en.themeLight="Light";
+ labels.ru.themeLight="Светлая";
+ labels.en.themeCosmic="Cosmic";
+ labels.ru.themeCosmic="Космос";
  var language="en",stored=null;
- try{stored=window.localStorage.getItem("consolewebkit-language")||window.localStorage.getItem("radar-locale");}catch(ignore){}
+ try{stored=window.localStorage.getItem("consolewebkit-language");}catch(ignore){}
  if(stored==="ru"||stored==="en")language=stored;
  var detected={model:"",label:"",firmware:"",reportedBy:"unknown",userAgent:""},manualModel="",manualFirmware="";
  function getText(name){return labels[language][name]||name;}
@@ -120,8 +130,9 @@
    element=translated[i];key=element.getAttribute("data-i18n");
    element.textContent=getText(key);
   }
-  text("locale-toggle",language==="ru"?"EN":"RU");
-  $("locale-toggle").setAttribute("aria-label",language==="ru"?"Switch to English":"Переключить на русский");
+  $("locale-select").value=language;
+  $("locale-select").setAttribute("aria-label",getText("languageLabel"));
+  $("theme-select").setAttribute("aria-label",getText("themeLabel"));
   drawAll();
  }
  function labelFor(model){
@@ -217,7 +228,19 @@
   capabilities=hintCapabilities();
   drawAll();
  }
- $("locale-toggle").onclick=function(){setLang(language==="ru"?"en":"ru");};
+ function setTheme(value){
+  var theme=value==="light"||value==="cosmic"?value:"dark";
+  document.documentElement.setAttribute("data-theme",theme);
+  $("theme-select").value=theme;
+  document.querySelector('meta[name="theme-color"]').setAttribute("content",
+   {dark:"#090f1b",light:"#edf4f7",cosmic:"#160f2b"}[theme]);
+  try{window.localStorage.setItem("consolewebkit-theme",theme);}catch(ignore){}
+ }
+ $("locale-select").onchange=function(){setLang(this.value);};
+ $("theme-select").onchange=function(){setTheme(this.value);};
+ var savedTheme;
+ try{savedTheme=window.localStorage.getItem("consolewebkit-theme");}catch(ignore){}
+ setTheme(savedTheme);
  $("refresh-scan").onclick=function(){manualModel="";manualFirmware="";$("manual-firmware").value="";scan();};
  $("show-manual").onclick=function(){
   var panel=$("manual-panel"),open=panel.hidden;

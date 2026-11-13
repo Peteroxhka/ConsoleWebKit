@@ -35,8 +35,8 @@ test("console pages render on legacy ES5 browsers",()=>{
  assert.doesNotMatch(ua,/=>|\?\.|\bimport\s/);
 });
 test("language switch and manual fallback exist without interfering with autodetection",()=>{
- assert.match(html,/id="locale-toggle"/);
- assert.match(app,/setLang\(language==="ru"\?"en":"ru"\)/);
+ assert.match(html,/id="locale-select"/);
+ assert.match(app,/locale-select"\)\.onchange/);
  assert.match(app,/readDetection\(\)/);
  assert.match(html,/id="manual-panel"[^>]*hidden/);
  assert.match(app,/manualModel/);

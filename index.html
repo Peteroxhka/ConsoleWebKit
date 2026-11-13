@@ -20,7 +20,14 @@
     <a href="./" class="brand" aria-label="ConsoleWebKit home"><span class="brand-icon">C<span>:</span></span><span>console<span class="brand-light">webkit</span><small>BY PETEROXHKA</small></span></a>
     <div class="header-right">
       <a class="header-link" href="https://github.com/Peteroxhka/ConsoleWebKit" target="_blank" rel="noopener noreferrer" data-i18n="source">Source code</a>
-      <button id="locale-toggle" type="button" class="locale-toggle" aria-label="Switch language">RU</button>
+      <select id="locale-select" class="locale-toggle" aria-label="Language">
+        <option value="en">English</option><option value="ru">Русский</option>
+      </select>
+      <select id="theme-select" class="locale-toggle" aria-label="Theme">
+        <option value="dark" data-i18n="themeDark">Dark</option>
+        <option value="light" data-i18n="themeLight">Light</option>
+        <option value="cosmic" data-i18n="themeCosmic">Cosmic</option>
+      </select>
     </div>
   </header>
   <main id="main" class="wrap">
