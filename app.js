@@ -109,6 +109,8 @@
  labels.ru.languageLabel="Язык";
  labels.en.themeLabel="Theme";
  labels.ru.themeLabel="Тема";
+ labels.en.themeAuto="Auto";
+ labels.ru.themeAuto="Авто";
  labels.en.themeDark="Dark";
  labels.ru.themeDark="Тёмная";
  labels.en.themeLight="Light";
@@ -228,19 +230,27 @@
   capabilities=hintCapabilities();
   drawAll();
  }
+ var systemTheme=window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)"):null;
+ var themePreference;
  function setTheme(value){
-  var theme=value==="light"||value==="cosmic"?value:"dark";
+  themePreference=value==="light"||value==="cosmic"||value==="dark"?value:"auto";
+  var theme=themePreference==="auto"?(systemTheme&&systemTheme.matches?"dark":systemTheme?"light":"dark"):themePreference;
   document.documentElement.setAttribute("data-theme",theme);
-  $("theme-select").value=theme;
+  $("theme-select").value=themePreference;
   document.querySelector('meta[name="theme-color"]').setAttribute("content",
    {dark:"#090f1b",light:"#edf4f7",cosmic:"#160f2b"}[theme]);
-  try{window.localStorage.setItem("consolewebkit-theme",theme);}catch(ignore){}
+  try{window.localStorage.setItem("consolewebkit-theme",themePreference);}catch(ignore){}
  }
  $("locale-select").onchange=function(){setLang(this.value);};
  $("theme-select").onchange=function(){setTheme(this.value);};
  var savedTheme;
  try{savedTheme=window.localStorage.getItem("consolewebkit-theme");}catch(ignore){}
  setTheme(savedTheme);
+ function updateSystemTheme(){if(themePreference==="auto")setTheme("auto");}
+ if(systemTheme){
+  if(systemTheme.addEventListener)systemTheme.addEventListener("change",updateSystemTheme);
+  else if(systemTheme.addListener)systemTheme.addListener(updateSystemTheme);
+ }
  $("refresh-scan").onclick=function(){manualModel="";manualFirmware="";$("manual-firmware").value="";scan();};
  $("show-manual").onclick=function(){
   var panel=$("manual-panel"),open=panel.hidden;
