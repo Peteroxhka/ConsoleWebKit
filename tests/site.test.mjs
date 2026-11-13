@@ -8,10 +8,10 @@ const css=readFileSync(new URL("../styles.css",import.meta.url),"utf8");
 const ua=readFileSync(new URL("../lib/console-detect.js",import.meta.url),"utf8");
 test("standalone ConsoleWebKit has no dependency on the old Repo Radar web app",()=>{
  assert.match(html,/<title>ConsoleWebKit/);
- assert.match(html,/src="\.\/app\.js"/);
- assert.match(html,/src="\.\/lib\/console-detect\.js"/);
- assert.match(html,/href="\.\/styles\.css"/);
- assert.doesNotMatch(html,/src="\.\/console-hub\.js"/);
+ assert.match(html,/src="\.\/app\.js(?:\?v=[a-f0-9]+)?"/);
+ assert.match(html,/src="\.\/lib\/console-detect\.js(?:\?v=[a-f0-9]+)?"/);
+ assert.match(html,/href="\.\/styles\.css(?:\?v=[a-f0-9]+)?"/);
+ assert.doesNotMatch(html,/src="\.\/console-hub\.js(?:\?v=[a-f0-9]+)?"/);
  assert.doesNotMatch(html,/supabase-js|supabase\.co/);
 });
 test("all IDs accessed in the UI are present and unique",()=>{
@@ -56,7 +56,7 @@ test("device detection parses models, but never invents firmware",()=>{
 
 
 test("curated GitHub directory is accessible and never embeds third-party scripts",()=>{
- assert.match(html,/src="\.\/lib\/community-projects\.js"/);
+ assert.match(html,/src="\.\/lib\/community-projects\.js(?:\?v=[a-f0-9]+)?"/);
  assert.match(html,/id="community-projects"/);
  assert.match(html,/data-community-filter="PS4"/);
  assert.match(html,/data-community-kind="entry"/);
