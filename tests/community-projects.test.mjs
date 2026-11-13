@@ -35,7 +35,7 @@ test("the directory uses native GitHub links only and remains ES5",()=>{
  assert.match(source,/https:\/\/github\.com\//);
  assert.match(source,/textContent/);
  assert.match(source,/noopener noreferrer/);
- assert.match(html,/src="\.\/lib\/community-projects\.js"/);
+ assert.match(html,/src="\.\/lib\/community-projects\.js(?:\?v=[a-f0-9]+)?"/);
  assert.match(html,/id="community-projects"/);
  assert.match(js,/ConsoleWebKitCommunity\.render/);
 });
