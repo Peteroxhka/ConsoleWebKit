@@ -191,6 +191,8 @@
   }
   drawLauncher(active,firmware);
  }
+ labels.en.hostUnavailable="External page unavailable (404).";
+ labels.ru.hostUnavailable="Внешняя страница недоступна (404).";
  function drawLauncher(model,firmware){
   var route=launcher.resolve(model,firmware),button=$("launch-ps4"),allowed=launcher.canLaunch(detected,model,firmware);
   text("launch-status",getText(route.status)+(model==="PS4"&&route.firmware?" · PS4 "+route.firmware:""));
@@ -198,6 +200,12 @@
   text("launch-module",route.name||"");
   button.disabled=!allowed;
   text("launch-detail",route.status==="available"?getText(allowed?"launchReady":detected.model!=="PS4"?"deviceRequired":"mismatch"):getText(route.status));
+  if(model==="PS4"&&route.firmware==="14.00"){
+   button.disabled=true;
+   text("launch-status",getText("hostUnavailable"));
+   $("launch-status").className="pill bad";
+   text("launch-detail",getText("hostUnavailable"));
+  }
   $("launch-1402").hidden=!(model==="PS4"&&route.firmware==="14.02");
   var buttons=document.querySelectorAll("[data-console]"),i,b;
   for(i=0;i<buttons.length;i++){b=buttons[i];b.title=b.getAttribute("data-console")==="PS4"?getText("launchTitle"):getText("unavailable");b.className=b.getAttribute("data-console")==="PS4"?"":"platform-unavailable";}
@@ -208,6 +216,7 @@
   var model=manualModel||detected.model,firmware=manualModel?manualFirmware:detected.firmware;
   if(!launcher.canLaunch(detected,model,firmware)){drawLauncher(model,firmware);return;}
   var route=launcher.resolve(model,firmware);
+  if(route.firmware==="14.00"){drawLauncher(model,firmware);return;}
   this.disabled=true;text("launch-detail",getText("launching"));
   window.location.assign(route.url);
  };
@@ -222,6 +231,7 @@
   text("engine-detail",detected.userAgent?getText("browserHint"):"");
  }
  function drawAll(){
+  if(detected.model&&document.documentElement.classList)document.documentElement.classList.add("console-browser");
   drawDetection();drawCapabilities();drawSelection();
   if(window.ConsoleWebKitCommunity)window.ConsoleWebKitCommunity.render(manualModel||detected.model);
  }
