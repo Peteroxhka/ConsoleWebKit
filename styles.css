@@ -114,3 +114,5 @@ button:focus,a:focus,input:focus,select:focus{outline:3px solid #5dbaff;outline-
 .console-browser .hero-decoration,.console-browser .hero-grid,.console-browser .site-glow{display:none}
 .console-browser .hero,.console-browser .section,.console-browser .launch-section{box-shadow:none}
 .console-browser button,.console-browser select,.console-browser .primary-action,.console-browser .secondary-action{min-height:44px}
+
+#launch-ps4[hidden]{display:none!important}

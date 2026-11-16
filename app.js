@@ -200,7 +200,11 @@
   text("launch-module",route.name||"");
   button.disabled=!allowed;
   text("launch-detail",route.status==="available"?getText(allowed?"launchReady":detected.model!=="PS4"?"deviceRequired":"mismatch"):getText(route.status));
-  if(model==="PS4"&&route.firmware==="14.00"){
+  var hostDown=model==="PS4"&&route.firmware==="14.00";
+  button.hidden=hostDown;
+  $("launch-notice").hidden=hostDown;
+  if(hostDown){
+   text("launch-module","");
    button.disabled=true;
    text("launch-status",getText("hostUnavailable"));
    $("launch-status").className="pill bad";
@@ -220,7 +224,7 @@
   this.disabled=true;text("launch-detail",getText("launching"));
   window.location.assign(route.url);
  };
- text("supported-firmware",launcher.versions.join(" · "));
+ text("supported-firmware",launcher.versions.filter(function(version){return version!=="14.00";}).join(" · "));
  $("launch-source").href=launcher.source;
  function drawDetection(){
   text("device-result",detected.model?labelFor(detected.model):getText("unknown"));
